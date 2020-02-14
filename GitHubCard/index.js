@@ -35,13 +35,18 @@ ax.then(response =>{
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
+
 //const followersArray = [];
+
+
 const ax2 = axios.get('https://api.github.com/users/tylerkummer/followers');
 ax2.then(response => {
   console.log(response.data);
   response.data.forEach((item, index) =>{
     if(index < 5){
-      newCards.append(GitHub(item));
+      axios.get(item.url).then(response =>{
+        newCards.append(GitHub(response.data));
+      })
     }
   })
 });
